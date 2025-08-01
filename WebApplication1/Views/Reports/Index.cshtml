@@ -1,0 +1,20 @@
+﻿@model IEnumerable<WebApplication1.Models.VehicleReportViewModel>
+<table class="table">
+    <tr>
+        <th>Supplier</th>
+        <th>Branch</th>
+        <th>Client</th>
+        <th>Manufacturer</th>
+        <th>Count</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Supplier</td>
+            <td>@item.Branch</td>
+            <td>@item.Client</td>
+            <td>@item.Manufacturer</td>
+            <td>@item.Count</td>
+        </tr>
+    }
+</table>
