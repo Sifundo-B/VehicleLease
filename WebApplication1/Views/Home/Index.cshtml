@@ -1,33 +1,67 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Vehicle Leasing Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<main>
-    <section class="row" aria-labelledby="aspnetTitle">
-        <h1 id="title">ASP.NET</h1>
-        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-        <p><a href="https://asp.net" class="btn btn-primary btn-md">Learn more &raquo;</a></p>
-    </section>
+<style>
+    .nav-card {
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
+        padding: 30px;
+        margin: 15px;
+        text-align: center;
+        transition: box-shadow 0.2s ease;
+        background-color: #f8f9fa;
+    }
 
-    <div class="row">
-        <section class="col-md-4" aria-labelledby="gettingStartedTitle">
-            <h2 id="gettingStartedTitle">Getting started</h2>
-            <p>
-                ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-                enables a clean separation of concerns and gives you full control over markup
-                for enjoyable, agile development.
-            </p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-        </section>
-        <section class="col-md-4" aria-labelledby="librariesTitle">
-            <h2 id="librariesTitle">Get more libraries</h2>
-            <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-        </section>
-        <section class="col-md-4" aria-labelledby="hostingTitle">
-            <h2 id="hostingTitle">Web Hosting</h2>
-            <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-        </section>
+        .nav-card:hover {
+            box-shadow: 0 0 10px rgba(0,0,0,0.15);
+            background-color: #ffffff;
+        }
+
+    .nav-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 30px;
+        padding: 40px;
+    }
+
+    .nav-card a {
+        text-decoration: none;
+        color: #007bff;
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    .nav-title {
+        text-align: center;
+        font-size: 28px;
+        font-weight: 600;
+        margin-bottom: 20px;
+        color: #333;
+    }
+</style>
+
+<div class="container">
+    <h2 class="nav-title">Vehicle Leasing Management System</h2>
+    <div class="nav-grid">
+        <div class="nav-card">
+            <a href="@Url.Action("Index", "Vehicles")">🚗 Manage Vehicles</a>
+        </div>
+        <div class="nav-card">
+            <a href="@Url.Action("Index", "Suppliers")">🏭 Manage Suppliers</a>
+        </div>
+        <div class="nav-card">
+            <a href="@Url.Action("Index", "Branches")">🏢 Manage Branches</a>
+        </div>
+        <div class="nav-card">
+            <a href="@Url.Action("Index", "Clients")">👔 Manage Clients</a>
+        </div>
+        <div class="nav-card">
+            <a href="@Url.Action("Index", "Drivers")">👨‍✈️ Manage Drivers</a>
+        </div>
+        <div class="nav-card">
+            <a href="@Url.Action("Index", "Reports")">📊 View Reports</a>
+        </div>
     </div>
-</main>
+</div>

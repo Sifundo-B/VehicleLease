@@ -50,6 +50,8 @@
             <th>Branch</th>
             <th>Client</th>
             <th>Manufacturer</th>
+            <th>Driver</th>
+            <th>Date Procured</th>
             <th>Count</th>
         </tr>
     </thead>
@@ -61,6 +63,8 @@
                 <td>@item.Branch</td>
                 <td>@item.Client</td>
                 <td>@item.Manufacturer</td>
+                <td>@item.Driver</td>
+                <td>@item.ProcuredDate.ToString("yyyy-MM-dd")</td>
                 <td>@item.Count</td>
             </tr>
         }
@@ -77,7 +81,8 @@
             header.addEventListener('click', () => {
                 const tbody = table.tBodies[0];
                 const rowsArray = Array.from(tbody.rows);
-                const isNumeric = index === 4; // 'Count' column is numeric
+                const isNumeric = index === 6;
+                const isDate = index === 5;
 
                 // Determine new sort direction
                 const currentDir = sortDirection[index] || 'asc';
@@ -99,6 +104,9 @@
                     if (isNumeric) {
                         cellA = parseInt(cellA) || 0;
                         cellB = parseInt(cellB) || 0;
+                    } else if (isDate) {
+                        cellA = new Date(cellA);
+                        cellB = new Date(cellB);
                     } else {
                         cellA = cellA.toLowerCase();
                         cellB = cellB.toLowerCase();

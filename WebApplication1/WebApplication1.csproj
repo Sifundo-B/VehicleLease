@@ -192,6 +192,10 @@
     <Compile Include="Migrations\202508011219369_250108.Designer.cs">
       <DependentUpon>202508011219369_250108.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202508011330467_ForceSeedTrigger.cs" />
+    <Compile Include="Migrations\202508011330467_ForceSeedTrigger.Designer.cs">
+      <DependentUpon>202508011330467_ForceSeedTrigger.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Branch.cs" />
@@ -343,6 +347,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202508011219369_250108.resx">
       <DependentUpon>202508011219369_250108.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202508011330467_ForceSeedTrigger.resx">
+      <DependentUpon>202508011330467_ForceSeedTrigger.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

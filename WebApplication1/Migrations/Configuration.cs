@@ -10,14 +10,15 @@
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationDataLossAllowed = false;
             ContextKey = "WebApplication1.Models.ApplicationDbContext";
         }
 
         protected override void Seed(WebApplication1.Models.ApplicationDbContext context)
         {
             // Avoid reseeding if data already exists
-            if (context.Suppliers.Any()) return;
+            //if (context.Suppliers.Any()) return;
 
             // ---- Seed Suppliers ----
             var supplier1 = new Supplier { Name = "AutoFleet Pty Ltd" };
@@ -39,12 +40,14 @@
             var driver2 = new Driver { FullName = "Thabiso Mokoena" };
             context.Drivers.AddOrUpdate(d => d.FullName, driver1, driver2);
 
-            context.SaveChanges(); // Save first to generate foreign key IDs
+            context.SaveChanges(); 
 
             // ---- Seed Vehicles ----
             var vehicle1 = new Vehicle
             {
                 Manufacturer = "Toyota",
+                Model = "Corolla",
+                ProcuredDate = new DateTime(2025, 5, 10), 
                 SupplierId = supplier1.SupplierId,
                 BranchId = branch1.BranchId,
                 ClientId = client1.ClientId,
@@ -54,19 +57,22 @@
             var vehicle2 = new Vehicle
             {
                 Manufacturer = "Ford",
+                Model = "Ranger",
+                ProcuredDate = new DateTime(2025, 1, 15), 
                 SupplierId = supplier2.SupplierId,
                 BranchId = branch2.BranchId,
                 ClientId = client2.ClientId,
                 DriverId = driver2.DriverId
             };
 
+
             context.Vehicles.AddOrUpdate(
-                v => new { v.Manufacturer, v.ClientId }, // Composite key match
+                v => new { v.Manufacturer, v.ClientId }, 
                 vehicle1,
                 vehicle2
             );
 
-            context.SaveChanges(); // Final commit
+            context.SaveChanges(); 
         }
 
     }
