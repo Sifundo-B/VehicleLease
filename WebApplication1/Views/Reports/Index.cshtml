@@ -1,20 +1,118 @@
 ﻿@model IEnumerable<WebApplication1.Models.VehicleReportViewModel>
-<table class="table">
-    <tr>
-        <th>Supplier</th>
-        <th>Branch</th>
-        <th>Client</th>
-        <th>Manufacturer</th>
-        <th>Count</th>
-    </tr>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>@item.Supplier</td>
-            <td>@item.Branch</td>
-            <td>@item.Client</td>
-            <td>@item.Manufacturer</td>
-            <td>@item.Count</td>
-        </tr>
+
+<style>
+    /* Table Styling */
+    table.table {
+        width: 100%;
+        border-collapse: collapse;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
+
+        table.table th, table.table td {
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        table.table th {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        table.table tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        table.table tbody tr:hover {
+            background-color: #e9f5ff;
+        }
+
+    /* Sort indicator */
+    th.sort-asc::after {
+        content: " ▲";
+        font-size: 0.7em;
+    }
+
+    th.sort-desc::after {
+        content: " ▼";
+        font-size: 0.7em;
+    }
+</style>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Supplier</th>
+            <th>Branch</th>
+            <th>Client</th>
+            <th>Manufacturer</th>
+            <th>Count</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Supplier</td>
+                <td>@item.Branch</td>
+                <td>@item.Client</td>
+                <td>@item.Manufacturer</td>
+                <td>@item.Count</td>
+            </tr>
+        }
+    </tbody>
 </table>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const table = document.querySelector('table.table');
+        const headers = table.querySelectorAll('th');
+        let sortDirection = Array(headers.length).fill(null);
+
+        headers.forEach((header, index) => {
+            header.addEventListener('click', () => {
+                const tbody = table.tBodies[0];
+                const rowsArray = Array.from(tbody.rows);
+                const isNumeric = index === 4; // 'Count' column is numeric
+
+                // Determine new sort direction
+                const currentDir = sortDirection[index] || 'asc';
+                const newDir = currentDir === 'asc' ? 'desc' : 'asc';
+                sortDirection.fill(null);
+                sortDirection[index] = newDir;
+
+                // Remove sort indicators from all headers
+                headers.forEach(h => h.classList.remove('sort-asc', 'sort-desc'));
+
+                // Add indicator on current header
+                header.classList.add(newDir === 'asc' ? 'sort-asc' : 'sort-desc');
+
+                // Sort rows
+                rowsArray.sort((a, b) => {
+                    let cellA = a.cells[index].innerText.trim();
+                    let cellB = b.cells[index].innerText.trim();
+
+                    if (isNumeric) {
+                        cellA = parseInt(cellA) || 0;
+                        cellB = parseInt(cellB) || 0;
+                    } else {
+                        cellA = cellA.toLowerCase();
+                        cellB = cellB.toLowerCase();
+                    }
+
+                    if (cellA < cellB) return newDir === 'asc' ? -1 : 1;
+                    if (cellA > cellB) return newDir === 'asc' ? 1 : -1;
+                    return 0;
+                });
+
+                // Append sorted rows
+                rowsArray.forEach(row => tbody.appendChild(row));
+            });
+        });
+    });
+</script>
+
